@@ -1,0 +1,4 @@
+.idea/
+cronosfera.egg-info/
+.pytest_cache/
+.venvs/
