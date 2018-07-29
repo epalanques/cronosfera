@@ -4,10 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pytest-mock = "*"
+h5py = "*"
 
 [dev-packages]
+git-pylint-commit-hook = "*"
 pytest = "*"
+pytest-mock = "*"
 
 [requires]
 python_version = "3.6"

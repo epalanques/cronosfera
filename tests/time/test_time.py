@@ -44,6 +44,7 @@ def test_comparison():
                 if tested_period > other:
                     assert tested_period >= other
 
+
 def test_contains():
     periods = []
 
@@ -53,12 +54,12 @@ def test_contains():
         periods.append(Time("eon", "period" + str(i), i + 2, i))
     periods.append(Time("eon", "period" + str(10), 7, 3))
 
-    for i in range(len(periods)):
-
-        if i in [3, 4, 5, 9]:
-            assert fixed_period.contains(periods[i])
+    containing_periods_index = [3, 4, 5, 9]
+    for period in periods:
+        if periods.index(period) in containing_periods_index:
+            assert fixed_period.contains(period)
         else:
-            assert not fixed_period.contains(periods[i])
+            assert not fixed_period.contains(period)
 
 
 def test_overlaps():
@@ -70,11 +71,12 @@ def test_overlaps():
         periods.append(Time("eon", "period" + str(i), i + 2, i))
     periods.append(Time("eon", "period" + str(10), 7, 3))
 
-    for i in range(len(periods)):
-        if i in [0, 1, 7, 8]:
-            assert not periods[i].overlaps(fixed_period)
+    overlapping_periods_index = [0, 1, 7, 8]
+    for period in periods:
+        if periods.index(period) in overlapping_periods_index:
+            assert not period.overlaps(fixed_period)
         else:
-            assert periods[i].overlaps(fixed_period)
+            assert period.overlaps(fixed_period)
 
 
 def test_add_period():
@@ -90,14 +92,15 @@ def test_add_period():
     manager.add_period(Time("Era", "Eoarchean", 4000, 3600))
     manager.add_period(Time("Era", "Mesoarchean", 3200, 2800))
 
-    precambrian = manager.get_period_by_name("precambrian")
+    precambrian = manager.get_period_by_name("precambrian")[1]
 
-    assert [sp.name for sp in precambrian.sorted_subperiods()] == ["Hadean", "Archean", "Proterozoic"]
+    assert [sp.name for sp in precambrian.sorted_subperiods()] == ["Hadean", "Archean",
+                                                                   "Proterozoic"]
 
     assert precambrian.is_full()
     assert precambrian.sorted_subperiods()[1].name == "Archean"
 
-    archean = manager.get_period_by_name("Archean")
+    archean = manager.get_period_by_name("Archean")[1]
     assert not archean.is_full()
     assert "Eoarchean" in archean
     assert "Mesoarchean" in archean
@@ -112,4 +115,3 @@ def test_add_period():
         assert False, "Didn't discard the overlapped era"
     except AssertionError:
         pass
-

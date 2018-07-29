@@ -2,13 +2,6 @@ import pytest
 
 from cronosfera.time import TimeManager
 
-def pytest_addoption(parser):
-    group = parser.getgroup('selenium', 'selenium')
-    group._addoption('--headless',
-                     action='store_true',
-                     help='enable headless mode for supported browsers.'
-                     )
-
 
 @pytest.yield_fixture(scope="function")
 def time_manager():

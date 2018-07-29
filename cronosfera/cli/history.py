@@ -1,11 +1,12 @@
-from cronosfera.time import TimeManager
-
+from .manager import Manager
 def main_script():
 
     earth = Manager()
 
     # todo: canviar lo del tipus de periode. fer que el retorni.
-    # exemple: precambrico = time.add("precambrico", 2000,1000); precambrico.add("hadeico", 2000, 2800)
+    # exemple:
+    # >>> precambrico = time.add("precambrico", 2000,1000);
+    # >>> precambrico.add("hadeico", 2000, 2800)
     # detecta automàticament si crea un eo o una era.
 
     earth.add('supereon', "Precámbrico", 4570000000, 542000000)
@@ -14,7 +15,7 @@ def main_script():
 
     earth.add_geology("theia", "Earth and Theia collide", 4500000100)
     earth.add_geology("moon", "Moon formation", 4500000000)
-    # todo: pensar manera d'incoporar eventos de l'espai (moon formation, gran pluja de meteorits...)
+    # todo: pensar manera d'incoporar eventos de l'espai (moon formation, pluja de meteorits...)
 
     zircon = earth.add_register("zircon", 4404000000)
     zircon.remarks = "Oldest found zircon"
@@ -37,30 +38,32 @@ def main_script():
     atm.pression = "10-100bars"
     atm.composition = "No O2"
 
-    AG = earth.add_register("Crustal Fragment", "Acasta Gneisses", 4000000000)
-    AG.composition = ["tonalite", "trondhjemite", "granodiorite", "amphibolite", "ultramaphic", "pink granites"]
-    AG.location = "Canada"
+    acasta = earth.add_register("Crustal Fragment", "Acasta Gneisses", 4000000000)
+    acasta.composition = ["tonalite", "trondhjemite", "granodiorite", "amphibolite", "ultramaphic",
+                          "pink granites"]
+    acasta.location = "Canada"
     #todo: escriure la seva info file
 
-    NC = earth.add_register("Crustal Fragment", "Napier Complex", 3900000000)
-    NC.composition = ["tonalite", "trondhjemite", "granodiorite", "sedimentary protoliths"]
-    NC.location = "Antartica"
+    nap_com = earth.add_register("Crustal Fragment", "Napier Complex", 3900000000)
+    nap_com.composition = ["tonalite", "trondhjemite", "granodiorite", "sedimentary protoliths"]
+    nap_com.location = "Antartica"
     #todo: escriure la seva info file
 
-    IGC = earth.add_register("Crustal Fragment", "Itsaq Gneiss Complex", 3850000000)
-    IGC.composition = ["tonalite", "trondhjemite", "granodiorite"]
-    IGC.location = "Greenland"
-    IGC.remarks = "largest and best preserved eoarchean continental crust fragment"
+    igc = earth.add_register("Crustal Fragment", "Itsaq Gneiss Complex", 3850000000)
+    igc.composition = ["tonalite", "trondhjemite", "granodiorite"]
+    igc.location = "Greenland"
+    igc.remarks = "largest and best preserved eoarchean continental crust fragment"
     #todo: escriure la seva info file
 
-    NSB = earth.add_register("Crustal Fragment", "Saglek-Hebron block", 3800000000)
-    NSB.composition = ["supracrustal assemblage"]
-    NSB.location = "Canada"
+    nsb = earth.add_register("Crustal Fragment", "Saglek-Hebron block", 3800000000)
+    nsb.composition = ["supracrustal assemblage"]
+    nsb.location = "Canada"
     #todo: escriure la seva info file
 
-    NSB = earth.add_register("Crustal Fragment", "Nuvvuagittuq Supracrustal Belt", 3800000000)
-    NSB.composition = ["Garnet paragneisses", "chemical sedmentary rocks", "volcanic rocks", "magic tuff", "intermediate tuff"]
-    NSB.location = "Canada"
+    nsb = earth.add_register("Crustal Fragment", "Nuvvuagittuq Supracrustal Belt", 3800000000)
+    nsb.composition = ["Garnet paragneisses", "chemical sedmentary rocks", "volcanic rocks",
+                       "magic tuff", "intermediate tuff"]
+    nsb.location = "Canada"
     #todo: escriure la seva info file
 
     earth.add_time("eon", "Arcaico", 3800000000, 2500000000)

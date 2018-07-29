@@ -1,6 +1,7 @@
+from random import randint
+
 from cronosfera.events.event import Event
 from cronosfera.events.event_base import EventBase
-from random import randint
 
 
 def test_punctual_event(time_manager):
@@ -18,7 +19,7 @@ def test_duration_event(time_manager):
     for i in range(9):
         starting_year = randint(1541, 4600)
         ending_year = starting_year - randint(100, 1000)
-        events.append(Event("ImportantEventBase"+str(i),starting_year, ending_year))
+        events.append(Event("ImportantEventBase"+str(i), starting_year, ending_year))
 
     for event in events:
         time_manager.add_duration_event(event)

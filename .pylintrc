@@ -1,0 +1,9 @@
+[MESSAGES CONTROL]
+disable=missing-docstring,no-value-for-parameter,unnecessary-lambda, no-member, fixme
+[MASTER]
+ignore=generated
+[DESIGN]
+max-attributes=12
+[pre-commit-hook]
+command=pylint
+limit=10.0

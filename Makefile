@@ -3,7 +3,7 @@ MAKEFLAGS += --warn-undefined-variables
 export ENV_LOCATION ?= $(realpath $(shell pipenv --venv))
 export WORKON_HOME=.venvs
 
-prp := pipenv run python
+prp := pipenv run python3
 pr  := pipenv run
 
 GENERATED_SRC_FOLDER:=generated

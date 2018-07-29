@@ -2,7 +2,7 @@
 TIME_ORDER = ['manager', 'supereon', 'eon', 'era', 'periodo', 'epoca', 'edad', 'cron']
 
 
-class Time(object):
+class Time:
     def __init__(self, period_type, name, starting_year, end_year):
         self.name = name
 
@@ -94,9 +94,8 @@ class Time(object):
         return sorted(self.subperiods.values())
 
     def subperiod_type(self):
-        for i in range(len(TIME_ORDER)):
-            if TIME_ORDER[i] == self.type:
-                return TIME_ORDER[i+1]
+        current_type_index = TIME_ORDER.index(self.type)
+        return TIME_ORDER[current_type_index+1]
 
     def add_period(self, new_period):
         # The new period is immediately contained in the current period
@@ -113,31 +112,32 @@ class Time(object):
             containing_period[0].add_period(new_period)
 
     def get_period_by_name(self, period_name):
-        if self.name == period_name:
-            return self
 
-        else:
-            if self.is_final():
-                return
-            else:
-                for subperiod in self.subperiods.values():
-                    period = subperiod.get_period_by_name(period_name)
-                    if period:
-                        return period
-                return
+        if self.name == period_name:
+            return True, self
+
+        if self.is_final():
+            return False, None
+
+        for subperiod in self.subperiods.values():
+            found, period = subperiod.get_period_by_name(period_name)
+            if found:
+                return True, period
+
+        return False, None
 
     def get_period_by_year(self, year, period_type='edad'):
         if self.is_final():
-            return
-        else:
-            if self.contains(year) and self.type == 'edad':
-                return self
-            else:
-                for subperiod in self.subperiods.values():
-                    period = subperiod.get_period_by_year(year, period_type)
-                    if period:
-                        return period
-                return
+            return False, None
+
+        if self.contains(year) and self.type == 'edad':
+            return True, self
+
+        for subperiod in self.subperiods.values():
+            found, period = subperiod.get_period_by_year(year, period_type)
+            if found:
+                return period
+        return False, None
 
     def add_punctual_event(self, event):
         for subperiod in self.subperiods.values():

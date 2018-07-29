@@ -9,19 +9,16 @@ class TimeManager(Time):
         super().__init__("Manager", "Earth existence", 4600000000, 0)
         self.subperiods_type = 'supereons'
 
-    def create_period(self, period_type, name, starting_year, end_year):
-        return Time(period_type, name, starting_year, end_year)
-
-    def add(self, type, name, starting_year, end_year=None):
+    def add(self, tipus, name, starting_year, end_year=None):
         # Lowercase the type
-        type = type.lower()
+        tipus = tipus.lower()
 
         # Time period
-        if type in TIME_ORDER:
-            period = Time(type, name, starting_year, end_year)
+        if tipus in TIME_ORDER:
+            period = Time(tipus, name, starting_year, end_year)
             self.add_period(period)
         # Event
-        elif type == 'event':
+        elif tipus == 'event':
             event = Event(name, starting_year, end_year)
             if end_year:
                 self.add_duration_event(event)
@@ -29,7 +26,7 @@ class TimeManager(Time):
                 self.add_punctual_event(event)
         # Geological event
         else:
-            geo_event = GeologicEvent(type, name, starting_year)
+            geo_event = GeologicEvent(tipus, name, starting_year)
             if end_year:
                 self.add_duration_event(geo_event)
             else:

@@ -43,7 +43,8 @@ def test_add_other_names():
     assert rock1.other_names == ["hi", "what's", "up"]
     assert rock2.other_names == []
 
-def test_get_info(mocker):
+
+def test_get_info():
     pass
 
 
@@ -53,8 +54,8 @@ def test_get_subclass():
     for i in range(3):
         sub_class = rock.add_subclass("subtest%i" % i)
         sub_class.add_other_names(["subclass%i" % i,
-                                     "minitest%i" % i,
-                                     "type%i" % i])
+                                   "minitest%i" % i,
+                                   "type%i" % i])
     sub_subclass = rock.subclassifications["subtest2"].add_subclass("sub-subclass")
     sub_subclass.add_other_names(["tiny one", "deepest one"])
 
@@ -78,8 +79,8 @@ def test_contains():
     for i in range(3):
         sub_class = rock.add_subclass("subtest%i" % i)
         sub_class.add_other_names(["subclass%i" % i,
-                                     "minitest%i" % i,
-                                     "type%i" % i])
+                                   "minitest%i" % i,
+                                   "type%i" % i])
 
     assert "subtest1" in rock
     assert "type2" in rock
@@ -93,25 +94,27 @@ def test_contains():
 def test_create_full_path():
     rock = RockManager()
 
-    rock._create_full_path('path/to/subtest')
-    rock._create_full_path('path/to/subtest2')
-    rock._create_full_path('path/to/another/subtest')
+    rock.create_full_path('path/to/subtest')
+    rock.create_full_path('path/to/subtest2')
+    rock.create_full_path('path/to/another/subtest')
 
     assert list(rock.subclassifications.keys()) == ["path"]
 
     path = rock.subclassifications["path"]
     assert list(path.subclassifications.keys()) == ["to"]
 
-    to = path.subclassifications["to"]
-    assert sorted(list(to.subclassifications.keys())) == sorted(["subtest", "subtest2", "another"])
+    path_to = path.subclassifications["to"]
+    assert sorted(list(path_to.subclassifications.keys())) == sorted(["subtest",
+                                                                      "subtest2",
+                                                                      "another"])
 
-    subset = to.subclassifications["subtest"]
+    subset = path_to.subclassifications["subtest"]
     assert list(subset.subclassifications.keys()) == []
 
-    subset2 = to.subclassifications["subtest2"]
+    subset2 = path_to.subclassifications["subtest2"]
     assert list(subset2.subclassifications.keys()) == []
 
-    another = to.subclassifications["another"]
+    another = path_to.subclassifications["another"]
     assert list(another.subclassifications.keys()) == ["subtest"]
 
     another_subset = another.subclassifications["subtest"]
@@ -130,4 +133,3 @@ def test_get_rock():
     assert rock.get_rock('path').name == 'path'
     assert not rock.get_rock("Not added rock")
     assert not rock.get_rock("NeitherThisOne")
-
